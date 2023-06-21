@@ -30,21 +30,22 @@ class TrainingweekResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
-                    TextInput::make('employee_id')->required(),
+                    TextInput::make('employee_id')
+                        ->required(),
                     // Select::make('employee_id')
                     // ->relationship('employees', 'id')
                     // ->required(),
 
                     TextInput::make('week_no')->required(),
                     Select::make('status')
-                    ->options([
-                    'abc' => 'ABC',
-                    'mno' => 'MNO',
-                    'xyz' => 'XYZ',
-                    ]),
+                        ->options([
+                            'abc' => 'ABC',
+                            'mno' => 'MNO',
+                            'xyz' => 'XYZ',
+                        ]),
                     DatePicker::make('start_date'),
                     DatePicker::make('end_date'),
-                    ])->columns(2),
+                ])->columns(2),
             ]);
     }
 
@@ -66,7 +67,7 @@ class TrainingweekResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
@@ -74,7 +75,7 @@ class TrainingweekResource extends Resource
             RelationManagers\TasksRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -82,5 +83,5 @@ class TrainingweekResource extends Resource
             'create' => Pages\CreateTrainingweek::route('/create'),
             'edit' => Pages\EditTrainingweek::route('/{record}/edit'),
         ];
-    }    
+    }
 }
