@@ -30,7 +30,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
-use Filament\Resources\Forms\Components\Button;
 
 class TrainingweeksRelationManager extends RelationManager
 {
@@ -77,10 +76,9 @@ class TrainingweeksRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
-                Tables\Actions\Action::make("test")->label(__('Generate Week')),
-                
-                
-                
+                Tables\Actions\Action::make("test")
+                ->action('generateWeek')
+                ->label(__('Generate Week')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -92,45 +90,28 @@ class TrainingweeksRelationManager extends RelationManager
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }    
-//     protected function getActions(): array
-// {
-//     return [
-//         Actions\DeleteAction::make(),
-//         Actions\Action::make('impersonate')->action('impersonate'),
 
-//         Actions\ForceDeleteAction::make(),
-//         Actions\RestoreAction::make(),
-//     ];
-// }
-    // protected function getTableQuery(): Builder
-    // {
-    //     return parent::getTableQuery()
-    //                 ->withoutGlobalScopes([
-    //                 SoftDeletingScope::class,
-    //     ]);
-    // }
-   
-    // public function handleButtonClick()
-    // {
-    //     // Logic to handle button click
-    // }
-    // protected function tabs(): array
-    // {
-    //     return [
-    //         RelationManagerTab::make('Trainingweeks')
-    //             ->relation('employees')
-    //             ->lists(EmployeeResource::class),
+    public function generateWeek(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Card::make()->schema([
+                    TextInput::make('Joining_date')->required(),
+                    // Select::make('employee_id')
+                    // ->relationship('employees', 'id')
+                    // ->required(),
 
-    //         RelationManagerTab::make('Custom Tab')
-    //             ->view('filament.relation-manager.custom-tab')
-    //             ->buttons([
-    //                 RelationManagerButton::make('Custom Button')
-    //                     ->primary()
-    //                     ->click(function () {
-    //                         // Handle button click logic here
-    //                     }),
-    //             ]),
-    //     ];
-    // }
+                    // TextInput::make('week_no')->required(),
+                    // Select::make('status')
+                    // ->options([
+                    // 'abc' => 'ABC',
+                    // 'mno' => 'MNO',
+                    // 'xyz' => 'XYZ',
+                    // ]),
+                    // DatePicker::make('start_date'),
+                    // DatePicker::make('end_date'),
+                    ])
+            ]);
+    }
     
 }
