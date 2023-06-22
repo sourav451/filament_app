@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string("country");
             $table->string("email");
             $table->string("phone_no");
+            $table->string("joining_date");
             $table->timestamps();
         });
     }

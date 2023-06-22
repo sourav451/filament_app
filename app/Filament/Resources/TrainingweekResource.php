@@ -56,6 +56,7 @@ class TrainingweekResource extends Resource
                 TextColumn::make('employee_id')->limit(20)->sortable()->searchable(),
                 TextColumn::make('week_no')->limit(20)->sortable()->searchable(),
                 TextColumn::make('status'),
+                TextColumn::make('start_date'),
             ])
             ->filters([
                 //

@@ -20,6 +20,7 @@ class Employee extends Model
         'country',
         'email',
         'phone_no',
+        'joining_date',
     ];
 
     public function trainingweeks(): HasMany

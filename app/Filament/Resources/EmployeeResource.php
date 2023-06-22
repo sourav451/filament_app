@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\RichEditor;
 
@@ -70,6 +71,8 @@ class EmployeeResource extends Resource
                         ->placeholder('Phone_No')
                         ->tel()
                         ->required(),
+                    DatePicker::make('joining_date')
+                        ->label(__('Joining_date')),
                 ])->columns(2)
             ]);
     }
@@ -80,6 +83,8 @@ class EmployeeResource extends Resource
             ->columns([
                 TextColumn::make('name')->limit(20)->sortable()->searchable(),
                 TextColumn::make('position'),
+                TextColumn::make('joining_date'),
+
             ])
             ->filters([
                 //
