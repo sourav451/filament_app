@@ -1,41 +1,39 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\UserResource\RelationManagers;
 
-use App\Filament\Resources\TrainingweekResource\Pages;
-use App\Filament\Resources\TrainingweekResource\RelationManagers;
-use App\Models\Trainingweek;
 use Filament\Forms;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Card;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
+use Carbon\Carbon;
 
-class TrainingweekResource extends Resource
+class TrainingweeksRelationManager extends RelationManager
 {
-    protected static ?string $model = Trainingweek::class;
+    protected static string $relationship = 'trainingweeks';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $recordTitleAttribute = 'status';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Card::make()->schema([
-                    TextInput::make('user_id')
+                    TextInput::make('employee_id')
                         ->required(),
-                    // Select::make('employee_id')
-                    // ->relationship('employees', 'id')
-                    // ->required(),
-
+                    // ->onChange(function ($value) {
+                    //     self::$employeeId = $value;
+                    // }),
+                    // ->afterStateHydrated(function ($state) {
+                    //     self::$employeeId = $state['employee_id'] ?? null;
+                    // }),
                     TextInput::make('week_no')->required(),
                     Select::make('status')
                         ->options([
@@ -53,36 +51,20 @@ class TrainingweekResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')->limit(20)->sortable()->searchable(),
-                TextColumn::make('week_no')->limit(20)->sortable()->searchable(),
-                TextColumn::make('status'),
-                TextColumn::make('start_date'),
+                Tables\Columns\TextColumn::make('status'),
             ])
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-            RelationManagers\TasksRelationManager::class,
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListTrainingweeks::route('/'),
-            'create' => Pages\CreateTrainingweek::route('/create'),
-            'edit' => Pages\EditTrainingweek::route('/{record}/edit'),
-        ];
     }
 }

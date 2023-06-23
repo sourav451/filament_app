@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class User extends Authenticatable
 {
@@ -21,7 +23,21 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'position',
+        'street',
+        'city',
+        'region',
+        'postal_code',
+        'country',
+        'phone_no',
+        'joining_date',
     ];
+
+    public function trainingweeks(): HasMany
+    {
+        return $this->hasMany(Trainingweek::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

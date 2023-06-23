@@ -13,16 +13,16 @@ class Trainingweek extends Model
     use HasFactory;
 
     protected $fillable = [
-        'employee_id',
+        'user_id',
         'week_no',
         'status',
         'start_date',
         'end_date',
         ];
 
-    public function employees(): BelongsTo
+    public function users(): BelongsTo
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(User::class);
     }
 
     public function tasks(): HasMany

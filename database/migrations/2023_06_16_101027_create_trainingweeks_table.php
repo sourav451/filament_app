@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('trainingweeks', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('employee_id');
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->bigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('week_no');
             $table->string('status');
             $table->date('start_date');
