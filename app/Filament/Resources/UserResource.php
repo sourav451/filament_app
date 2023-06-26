@@ -52,11 +52,11 @@ class UserResource extends Resource
                         'employee' => 'Employee',
                         'trainee' => 'Trainee',
                     ]), 
-                TextInput::make('position')
-                    ->placeholder('Position')
-                    ->minLength(4)
-                    ->maxLength(255)
-                    ->required(),
+                // TextInput::make('position')
+                //     ->placeholder('Position')
+                //     ->minLength(4)
+                //     ->maxLength(255)
+                //     ->required(),
                 TextInput::make('street')
                     ->placeholder('Street')
                     ->minLength(4)
@@ -79,17 +79,18 @@ class UserResource extends Resource
                     ->minLength(3)
                     ->maxLength(20)
                     ->required(),
-                TextInput::make('email')
-                    ->placeholder('Email')
-                    // ->autocomplete('Name')
-                    ->email()
-                    ->suffix('.com')
-                    ->required(),
+                // TextInput::make('email')
+                //     ->placeholder('Email')
+                //     // ->autocomplete('Name')
+                //     ->email()
+                //     ->suffix('.com')
+                //     ->required(),
                 TextInput::make('phone_no')
                     ->placeholder('Phone_No')
                     ->tel()
                     ->required(),
                 DatePicker::make('joining_date')
+                    ->rules('required','before_or_equal:today')
                     ->label(__('Joining_date')),
             ]);
     }
@@ -120,6 +121,7 @@ class UserResource extends Resource
     {
         return [
             //
+            RelationManagers\TrainingweeksRelationManager::class,
         ];
     }
 

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->nullable();;
+            $table->string('role')->nullable();
             //admin,employee,trainee
-            $table->string("position")->nullable();
+            // $table->string("position")->nullable();
             $table->string("street")->nullable();
             $table->string("city")->nullable();
             $table->string("region")->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string("country")->nullable();
             $table->string("phone_no")->nullable();
             $table->date("joining_date")->nullable();
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
     }
