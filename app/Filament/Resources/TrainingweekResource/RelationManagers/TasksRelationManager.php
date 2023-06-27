@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Card;
+// use Livewire\Livewire;
+use Livewire\Component as Livewire;
 
 class TasksRelationManager extends RelationManager
 {
@@ -59,6 +61,9 @@ class TasksRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
+                Tables\Actions\Action::make('showdata')
+                    ->button()
+                    ->action('showdata'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -68,4 +73,8 @@ class TasksRelationManager extends RelationManager
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }    
+    public function showdata(Livewire $livewire){
+        $data = $livewire->getOwnerRecord();
+        dd($data);
+    }
 }

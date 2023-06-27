@@ -102,7 +102,7 @@ class UserResource extends Resource
                 //
                 TextColumn::make('id'),
                 TextColumn::make('name')->limit(20)->sortable()->searchable(),
-                TextColumn::make('position'),
+                TextColumn::make('role'),
                 TextColumn::make('joining_date'),
 
             ])

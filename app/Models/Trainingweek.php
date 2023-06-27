@@ -16,9 +16,14 @@ class Trainingweek extends Model
         'user_id',
         'week_no',
         'status',
+        'lesson_ids',
         'start_date',
         'end_date',
-        ];
+    ];
+
+    protected $casts = [
+        'lesson_ids' => 'array',
+    ];
 
     public function users(): BelongsTo
     {
@@ -29,6 +34,9 @@ class Trainingweek extends Model
     {
         return $this->hasMany(Task::class);
     }
-        
-        
+
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(Lesson::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TrainingweekResource\Pages;
 use App\Filament\Resources\TrainingweekResource\RelationManagers;
+use App\Models\Lesson;
 use App\Models\Trainingweek;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -18,6 +19,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
+use Livewire\Livewire;
 
 class TrainingweekResource extends Resource
 {
@@ -37,6 +39,14 @@ class TrainingweekResource extends Resource
                     // ->required(),
 
                     TextInput::make('week_no')->required(),
+                    // TextInput::make('lesson_ids')->required(),
+                    
+ 
+                    Select::make('lessons_ids')
+                        ->multiple()
+                        ->options(Lesson::all()->pluck('title','id')),
+                        
+
                     Select::make('status')
                         ->options([
                             'abc' => 'ABC',
@@ -57,6 +67,7 @@ class TrainingweekResource extends Resource
                 TextColumn::make('week_no')->limit(20)->sortable()->searchable(),
                 TextColumn::make('status'),
                 TextColumn::make('start_date'),
+                TextColumn::make('lesson_ids'),
             ])
             ->filters([
                 //
@@ -68,6 +79,7 @@ class TrainingweekResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
+    // $userId = $livewire->getOwnerRecord()
 
     public static function getRelations(): array
     {
