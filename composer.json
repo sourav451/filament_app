@@ -15,8 +15,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "*",
         "mll-lab/laravel-graphiql": "^3.0",
-        "nesbot/carbon": "^2.67",
-        "nuwave/lighthouse": "^6.11"
+        "nesbot/carbon": "^2.67"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

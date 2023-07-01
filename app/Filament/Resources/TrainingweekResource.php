@@ -26,6 +26,8 @@ class TrainingweekResource extends Resource
     protected static ?string $model = Trainingweek::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?int $navigationSort = 2;
+
 
     public static function form(Form $form): Form
     {
@@ -40,12 +42,11 @@ class TrainingweekResource extends Resource
 
                     TextInput::make('week_no')->required(),
                     // TextInput::make('lesson_ids')->required(),
-                    
- 
-                    Select::make('lessons_ids')
+
+
+                    Select::make('lesson_ids')
                         ->multiple()
-                        ->options(Lesson::all()->pluck('title','id')),
-                        
+                        ->options(Lesson::all()->pluck('title', 'id')),
 
                     Select::make('status')
                         ->options([
@@ -53,7 +54,9 @@ class TrainingweekResource extends Resource
                             'mno' => 'MNO',
                             'xyz' => 'XYZ',
                         ]),
+
                     DatePicker::make('start_date'),
+
                     DatePicker::make('end_date'),
                 ])->columns(2),
             ]);
