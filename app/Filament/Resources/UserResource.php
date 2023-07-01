@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\Pages\CreateUser;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
@@ -16,7 +17,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
-
+use Filament\Pages\Page;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -46,16 +48,26 @@ class UserResource extends Resource
                     ->required(),
                 TextInput::make('password')->label(__('Password'))
                     ->password()
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
                     ->placeholder('password')
                     ->minLength(4)
                     ->maxLength(255)
-                    ->required(),
-                Select::make('role')->label(__('Role'))
-                    ->options([
-                        'admin' => 'Admin',
-                        'employee' => 'Employee',
-                        'trainee' => 'Trainee',
-                    ]), 
+                    ->required(fn (Page $livewire) => ($livewire instanceof CreateUser)),
+                Select::make('roles')
+                    ->multiple()
+                    ->relationship('roles', 'name')
+                    ->preload(),
+                Select::make('permissions')
+                    ->multiple()
+                    ->relationship('permissions', 'name')
+                    ->preload(),
+                // Select::make('role')->label(__('Role'))
+                //     ->options([
+                //         'admin' => 'Admin',
+                //         'employee' => 'Employee',
+                //         'trainee' => 'Trainee',
+                //     ]),
                 // TextInput::make('position')
                 //     ->placeholder('Position')
                 //     ->minLength(4)
@@ -64,25 +76,20 @@ class UserResource extends Resource
                 TextInput::make('street')
                     ->placeholder('Street')
                     ->minLength(4)
-                    ->maxLength(255)
-                    ->required(),
+                    ->maxLength(255),
                 TextInput::make('city')
                     ->placeholder('City')
                     ->minLength(4)
-                    ->maxLength(255)
-                    ->required(),
+                    ->maxLength(255),
                 TextInput::make('region')
-                    ->placeholder('Region')
-                    ->required(),
+                    ->placeholder('Region'),
                 TextInput::make('postal_code')
                     ->placeholder('Postal_Code')
-                    ->numeric()
-                    ->required(),
+                    ->numeric(),
                 TextInput::make('country')
                     ->placeholder('Country')
                     ->minLength(3)
-                    ->maxLength(20)
-                    ->required(),
+                    ->maxLength(20),
                 // TextInput::make('email')
                 //     ->placeholder('Email')
                 //     // ->autocomplete('Name')
@@ -91,10 +98,9 @@ class UserResource extends Resource
                 //     ->required(),
                 TextInput::make('phone_no')
                     ->placeholder('Phone_No')
-                    ->tel()
-                    ->required(),
+                    ->tel(),
                 DatePicker::make('joining_date')
-                    ->rules('required','before_or_equal:today')
+                    ->rules('required', 'before_or_equal:today')
                     ->label(__('Joining_date')),
             ]);
     }
@@ -106,7 +112,8 @@ class UserResource extends Resource
                 //
                 TextColumn::make('id'),
                 TextColumn::make('name')->limit(20)->sortable()->searchable(),
-                TextColumn::make('role'),
+                // TextColumn::make('roles')
+                // ->name(role),
                 TextColumn::make('joining_date'),
 
             ])
@@ -115,6 +122,7 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

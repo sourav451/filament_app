@@ -13,8 +13,6 @@ class ListTrainingweeks extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\Action::make('impersonate')->action('impersonate'),
-            // Actions\Action::make('impersonate')->action('impersonate'),
 
             Actions\CreateAction::make(),
         ];
