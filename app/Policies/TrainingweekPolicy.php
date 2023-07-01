@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Trainingweek;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Livewire\Livewire;
 
 class TrainingweekPolicy
 {
@@ -22,6 +23,7 @@ class TrainingweekPolicy
     public function view(User $user, Trainingweek $trainingweek): bool
     {
         //
+        return $user->hasRole('Employee');
     }
 
     /**
@@ -53,7 +55,7 @@ class TrainingweekPolicy
      */
     public function restore(User $user, Trainingweek $trainingweek): bool
     {
-        //
+        return $user->hasRole('Employee');
     }
 
     /**

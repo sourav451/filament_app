@@ -39,6 +39,8 @@ class SubjectPolicy
     public function update(User $user, Subject $subject): bool
     {
         //
+        return $user->hasRole('Admin');
+
     }
 
     /**

@@ -100,4 +100,8 @@ class TrainingweekResource extends Resource
             'edit' => Pages\EditTrainingweek::route('/{record}/edit'),
         ];
     }
+    // public static function getEloquentQuery(): Builder
+    // {
+    //     return parent::getEloquentQuery()->where('userId','==',$userId);
+    // }
 }
